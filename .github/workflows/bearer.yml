@@ -1,0 +1,29 @@
+name: Bearer
+
+on:
+  push:
+    branches:
+      - master
+      - spike/experiment-sarif
+
+permissions:
+  contents: read
+  
+jobs:
+  bearer:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+    
+    name: Scan
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout project source
+      - uses: actions/checkout@v3
+
+      # Upload SARIF file generated in previous step
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: bearer.sarif
+        if: always()
