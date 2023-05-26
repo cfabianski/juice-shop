@@ -1,2105 +1,1126 @@
 {
-  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-  "version": "2.1.0",
-  "runs": [
-    {
-      "tool": {
-        "driver": {
-          "name": "Bearer",
-          "rules": [
-            {
-              "id": "javascript_lang_message_handler_origin",
-              "name": "javascript_lang_message_handler_origin",
-              "shortDescription": {
-                "text": "Unchecked origin in message handler detected."
-              },
-              "fullDescription": {
-                "text": "Unchecked origin in message handler detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nApplications should check the origin of `message` events. Handling messages\nfrom untrusted origins could lead to Cross-Site Scripting (XSS) attacks.\n\n## Remediations\n\n❌ Avoid handling messages from any origin:\n\n```javascript\nwindow.addEventListener('message', (event) => {\n  actOnMessage(event.data)\n})\n```\n\n✅ Validate the origin:\n\n```javascript\nwindow.addEventListener('message', (event) => {\n  if (event.origin != 'https://myapp.example.com') {\n    throw new Error('invalid origin')\n  }\n\n  actOnMessage(event.data)\n})\n```\n\n## Resources\n- [OWASP Cross-Site Scripting (XSS) Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n",
-                "markdown": "## Description\n\nApplications should check the origin of `message` events. Handling messages\nfrom untrusted origins could lead to Cross-Site Scripting (XSS) attacks.\n\n## Remediations\n\n❌ Avoid handling messages from any origin:\n\n```javascript\nwindow.addEventListener('message', (event) => {\n  actOnMessage(event.data)\n})\n```\n\n✅ Validate the origin:\n\n```javascript\nwindow.addEventListener('message', (event) => {\n  if (event.origin != 'https://myapp.example.com') {\n    throw new Error('invalid origin')\n  }\n\n  actOnMessage(event.data)\n})\n```\n\n## Resources\n- [OWASP Cross-Site Scripting (XSS) Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_session",
-              "name": "javascript_lang_session",
-              "shortDescription": {
-                "text": "Sensitive data stored in HTML local storage detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data stored in HTML local storage detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nSensitive data should not be stored in a `localStorage` session. This policy looks for any sensitive data stored within the localstorage.\n\n## Remediations\n\nIt's best to avoid storing sensitive data in `localStorage` whenever possible. To keep session data safe, use a server-based session storage solution instead.\n\n❌ If you do need do store data in `localStorage`, avoid including sensitive data:\n\n```javascript\nlocalStorage.setItem('user', email)\n```\n\n✅ Instead, use a unique identifier:\n\n```javascript\nlocalStorage.setItem('user', user.uuid)\n```\n\n## Resources\n  - [OWASP sensitive data exposure](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure)\n",
-                "markdown": "## Description\n\nSensitive data should not be stored in a `localStorage` session. This policy looks for any sensitive data stored within the localstorage.\n\n## Remediations\n\nIt's best to avoid storing sensitive data in `localStorage` whenever possible. To keep session data safe, use a server-based session storage solution instead.\n\n❌ If you do need do store data in `localStorage`, avoid including sensitive data:\n\n```javascript\nlocalStorage.setItem('user', email)\n```\n\n✅ Instead, use a unique identifier:\n\n```javascript\nlocalStorage.setItem('user', user.uuid)\n```\n\n## Resources\n  - [OWASP sensitive data exposure](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_datadog_browser",
-              "name": "javascript_third_parties_datadog_browser",
-              "shortDescription": {
-                "text": "Sensitive data sent to Datadog detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Datadog detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nSensitive and private data contained in your pages may be sent to datatdog to identify elements that a user interacted with.\n\n## Remediations\n\nTo control which information is sent to Datadog, manually set an action name, or implement a global scrubbing rule in the Datadog Browser SDK for RUM.\n\n## Resources\n- [Datadog docs](https://docs.datadoghq.com)\n- [Scrubbing data](https://docs.datadoghq.com/real_user_monitoring/browser/modifying_data_and_context/?tab=npm)\n",
-                "markdown": "## Description\nSensitive and private data contained in your pages may be sent to datatdog to identify elements that a user interacted with.\n\n## Remediations\n\nTo control which information is sent to Datadog, manually set an action name, or implement a global scrubbing rule in the Datadog Browser SDK for RUM.\n\n## Resources\n- [Datadog docs](https://docs.datadoghq.com)\n- [Scrubbing data](https://docs.datadoghq.com/real_user_monitoring/browser/modifying_data_and_context/?tab=npm)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_open_redirect",
-              "name": "javascript_lang_open_redirect",
-              "shortDescription": {
-                "text": "Open redirect detected."
-              },
-              "fullDescription": {
-                "text": "Open redirect detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nA redirect using unsanitized user input is bad practice and puts your application at greater risk of phishing attacks.\n\n## Remediations\n\nAvoid using redirects and forwards.\n\n## Resources\n- [OWASP open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nA redirect using unsanitized user input is bad practice and puts your application at greater risk of phishing attacks.\n\n## Remediations\n\nAvoid using redirects and forwards.\n\n## Resources\n- [OWASP open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_sentry",
-              "name": "javascript_third_parties_sentry",
-              "shortDescription": {
-                "text": "Sensitive data sent to Sentry detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Sentry detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Sentry.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\n## Resources\n- [Sentry Docs](https://docs.sentry.io/)\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Sentry.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\n## Resources\n- [Sentry Docs](https://docs.sentry.io/)\n"
-              }
-            },
-            {
-              "id": "javascript_express_cross_site_scripting",
-              "name": "javascript_express_cross_site_scripting",
-              "shortDescription": {
-                "text": "Cross-site scripting (XSS) vulnerability detected."
-              },
-              "fullDescription": {
-                "text": "Cross-site scripting (XSS) vulnerability detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nSending unsanitized user input in a response puts your application at risk of cross-site scripting attacks.\n\n\n## Remediations\n❌ Avoid including user input directly in a response:\n\n```javascript\nres.send(req.body.data)\n```\n\n## Resources\n- [OWASP Cross-Site Scripting (XSS) Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nSending unsanitized user input in a response puts your application at risk of cross-site scripting attacks.\n\n\n## Remediations\n❌ Avoid including user input directly in a response:\n\n```javascript\nres.send(req.body.data)\n```\n\n## Resources\n- [OWASP Cross-Site Scripting (XSS) Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_external_resource",
-              "name": "javascript_express_external_resource",
-              "shortDescription": {
-                "text": "Rendering of resources resolved from external name or reference detected."
-              },
-              "fullDescription": {
-                "text": "Rendering of resources resolved from external name or reference detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nUsing raw unsanitized input when rendering resources is bad practice.\n\n## Remediations\n❌ Avoid passing user or request input to res.render() or require().\n\n✅ Sanitize the input or use a safelist\n\nWhere it is unavoidable to rely on user input, sanitize the input or use a safelist to keep the rendered resources within the expected scope.\n\n```javascript\nvar path = req.body.path\nif (['users', 'posts', 'pages'].includes(path)) {\n  return res.render(`${path}/success`)\n}\n```\n",
-                "markdown": "## Description\nUsing raw unsanitized input when rendering resources is bad practice.\n\n## Remediations\n❌ Avoid passing user or request input to res.render() or require().\n\n✅ Sanitize the input or use a safelist\n\nWhere it is unavoidable to rely on user input, sanitize the input or use a safelist to keep the rendered resources within the expected scope.\n\n```javascript\nvar path = req.body.path\nif (['users', 'posts', 'pages'].includes(path)) {\n  return res.render(`${path}/success`)\n}\n```\n"
-              }
-            },
-            {
-              "id": "javascript_lang_jwt_hardcoded_secret",
-              "name": "javascript_lang_jwt_hardcoded_secret",
-              "shortDescription": {
-                "text": "Hardcoded JWT secret detected"
-              },
-              "fullDescription": {
-                "text": "Hardcoded JWT secret detected"
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nCode is not a secure place to store secrets, use environment variables instead.\n\n## Remediations\n\nUse environment variables\n\n```javascript\n  var jwt = require(\"jsonwebtoken\");\n\n  var token = jwt.sign({ foo: \"bar\" }, process.env.JWT_SECRET);\n```\n\n## Resources\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n",
-                "markdown": "## Description\n\nCode is not a secure place to store secrets, use environment variables instead.\n\n## Remediations\n\nUse environment variables\n\n```javascript\n  var jwt = require(\"jsonwebtoken\");\n\n  var token = jwt.sign({ foo: \"bar\" }, process.env.JWT_SECRET);\n```\n\n## Resources\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n"
-              }
-            },
-            {
-              "id": "javascript_express_ui_redress",
-              "name": "javascript_express_ui_redress",
-              "shortDescription": {
-                "text": "User Interface (UI) redress vulnerability (clickjacking) detected."
-              },
-              "fullDescription": {
-                "text": "User Interface (UI) redress vulnerability (clickjacking) detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nUsing unsanitized user input to set X-Frame-Options or Content-Security-Policy HTTP headers puts your application at risk for UI redress attacks (clickjacking).\n\n## Remediations\n✅ Prefer the most secure values when setting these headers\n\n```javascript\nres.set('X-Frame-Options', 'DENY')\nres.set('Content-Security-Policy', \"frame-ancestors 'none'\")\n```\n\n✅ Avoid using user input directly to set the headers, or use a safelist to guard against clickjacking\n\n```javascript\nif (req.query.options === 'same') {\n  res.set('X-Frame-Options', 'SAME')\n}\n\n// safelist\nif (['deny', 'sameorigin'].includes(req.query.options.toLowerCase)) {\n  res.set('X-Frame-Options', req.query.options)\n}\n```\n\n## Resources\n- [OWASP Clickjacking attack explained](https://owasp.org/www-community/attacks/Clickjacking)\n- [OWASP Clickjacking defense cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nUsing unsanitized user input to set X-Frame-Options or Content-Security-Policy HTTP headers puts your application at risk for UI redress attacks (clickjacking).\n\n## Remediations\n✅ Prefer the most secure values when setting these headers\n\n```javascript\nres.set('X-Frame-Options', 'DENY')\nres.set('Content-Security-Policy', \"frame-ancestors 'none'\")\n```\n\n✅ Avoid using user input directly to set the headers, or use a safelist to guard against clickjacking\n\n```javascript\nif (req.query.options === 'same') {\n  res.set('X-Frame-Options', 'SAME')\n}\n\n// safelist\nif (['deny', 'sameorigin'].includes(req.query.options.toLowerCase)) {\n  res.set('X-Frame-Options', req.query.options)\n}\n```\n\n## Resources\n- [OWASP Clickjacking attack explained](https://owasp.org/www-community/attacks/Clickjacking)\n- [OWASP Clickjacking defense cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_sql_injection",
-              "name": "javascript_express_sql_injection",
-              "shortDescription": {
-                "text": "SQL injection vulnerability detected."
-              },
-              "fullDescription": {
-                "text": "SQL injection vulnerability detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nIncluding unsanitized data, such as user input or request data, in raw SQL queries makes your application vulnerable to SQL injection attacks.\n\n## Remediations\n\n❌ Avoid raw queries, especially those that contain unsanitized user input\n\n```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId);\n```\n\nInstead, consider the following approaches when writing SQL queries\n\n✅ Validate query input wherever possible\n\n```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n```\n\n✅ Use prepared (or parameterized) statements when querying\n\nSequelize example -\n```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n```\n\n## Resources\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nIncluding unsanitized data, such as user input or request data, in raw SQL queries makes your application vulnerable to SQL injection attacks.\n\n## Remediations\n\n❌ Avoid raw queries, especially those that contain unsanitized user input\n\n```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\"SELECT * FROM users WHERE ID = \" + req.params.userId);\n```\n\nInstead, consider the following approaches when writing SQL queries\n\n✅ Validate query input wherever possible\n\n```javascript\n  var rawId = req.params.userId\n  if !(/[0-9]+/.test(rawId)) {\n    // input is unexpected; don't make the query\n  }\n```\n\n✅ Use prepared (or parameterized) statements when querying\n\nSequelize example -\n```javascript\n  var sqlite = new Sequelize(\"sqlite::memory:\");\n  sqlite.query(\n    \"SELECT * FROM users WHERE ID = ?\",\n    { replacements: [req.params.userId] },\n    type: sequelize.QueryTypes.SELECT\n  )\n```\n\n## Resources\n- [OWASP SQL injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n- [OWASP SQL injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_dom_purify",
-              "name": "javascript_third_parties_dom_purify",
-              "shortDescription": {
-                "text": "Unsecure use of DOMPurify detected."
-              },
-              "fullDescription": {
-                "text": "Unsecure use of DOMPurify detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nThere are XSS vulnerabilites when using DOMPurify's sanitize without proper configuration\n\n## Remediations\n\nSpecify a secure configuration option:\n```\n  DOMPurify.sanitize(htmlToSanitize, { RETURN_DOM_IMPORT:true })\n```\n\nor:\n\n```\n  DOMPurify.sanitize(htmlToSanitize, { RETURN_DOM_FRAGMENT: true })\n```\n\n## Resources\n- [Vulnerability explained](https://research.securitum.com/mutation-xss-via-mathml-mutation-dompurify-2-0-17-bypass)\n",
-                "markdown": "## Description\nThere are XSS vulnerabilites when using DOMPurify's sanitize without proper configuration\n\n## Remediations\n\nSpecify a secure configuration option:\n```\n  DOMPurify.sanitize(htmlToSanitize, { RETURN_DOM_IMPORT:true })\n```\n\nor:\n\n```\n  DOMPurify.sanitize(htmlToSanitize, { RETURN_DOM_FRAGMENT: true })\n```\n\n## Resources\n- [Vulnerability explained](https://research.securitum.com/mutation-xss-via-mathml-mutation-dompurify-2-0-17-bypass)\n"
-              }
-            },
-            {
-              "id": "javascript_react_dangerously_set_inner_html",
-              "name": "javascript_react_dangerously_set_inner_html",
-              "shortDescription": {
-                "text": "React's dangerously set inner HTML detected."
-              },
-              "fullDescription": {
-                "text": "React's dangerously set inner HTML detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nThere are Cross-Site Scripting (XSS) vulnerabilites when using React's dangerouslySetInnerHTML with unsanitized data.\n\n## Remediations\n✅ Sanitize data when using dangerouslySetInnerHTML\n\n```javascript\n  <div\n    dangerouslySetInnerHTML={{__html: sanitize(data)}}\n  />\n```\n\n## Resources\n- [OWASP Cross-Site Scripting (XSS) Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nThere are Cross-Site Scripting (XSS) vulnerabilites when using React's dangerouslySetInnerHTML with unsanitized data.\n\n## Remediations\n✅ Sanitize data when using dangerouslySetInnerHTML\n\n```javascript\n  <div\n    dangerouslySetInnerHTML={{__html: sanitize(data)}}\n  />\n```\n\n## Resources\n- [OWASP Cross-Site Scripting (XSS) Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_server_side_request_forgery",
-              "name": "javascript_express_server_side_request_forgery",
-              "shortDescription": {
-                "text": "Risk of server-side request forgery detected."
-              },
-              "fullDescription": {
-                "text": "Risk of server-side request forgery detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nUsing unsanitized URLs from the request object when retrieving data puts your application at risk of server-side request forgery (SSRF) attacks.\nThis rule checks for URLs containing user-supplied data.\n\n## Remediations\n\n❌ Avoid using user input in URLs:\n\n```javascript\naxios.get(`https://${req.params.host}`)\n```\n\n✅ Use user input indirectly to form a URL:\n\n```javascript\nvar host = \"default-api.com\"\nif req.params.host == \"something-else\" {\n  host = \"other-api.com\"\n}\n\naxios.get(`https://${host}`)\n```\n\n## Resources\n- [OWASP - Server-Side Request Forgery (SSRF) prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nUsing unsanitized URLs from the request object when retrieving data puts your application at risk of server-side request forgery (SSRF) attacks.\nThis rule checks for URLs containing user-supplied data.\n\n## Remediations\n\n❌ Avoid using user input in URLs:\n\n```javascript\naxios.get(`https://${req.params.host}`)\n```\n\n✅ Use user input indirectly to form a URL:\n\n```javascript\nvar host = \"default-api.com\"\nif req.params.host == \"something-else\" {\n  host = \"other-api.com\"\n}\n\naxios.get(`https://${host}`)\n```\n\n## Resources\n- [OWASP - Server-Side Request Forgery (SSRF) prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_hardcoded_secret",
-              "name": "javascript_express_hardcoded_secret",
-              "shortDescription": {
-                "text": "Hard-coded secret detected."
-              },
-              "fullDescription": {
-                "text": "Hard-coded secret detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nCode is not a secure place to store hard-coded secrets. Use environment variables instead.\n\n## Remediations\n✅ Use environment variables and a secret management system instead\n\n```javascript\n app.use(\n  session({\n    secret: process.env.secret,\n    name: \"my-custom-session-name\",\n  })\n)\n```\n\n## Resources\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n",
-                "markdown": "## Description\nCode is not a secure place to store hard-coded secrets. Use environment variables instead.\n\n## Remediations\n✅ Use environment variables and a secret management system instead\n\n```javascript\n app.use(\n  session({\n    secret: process.env.secret,\n    name: \"my-custom-session-name\",\n  })\n)\n```\n\n## Resources\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n"
-              }
-            },
-            {
-              "id": "javascript_express_insecure_template_rendering",
-              "name": "javascript_express_insecure_template_rendering",
-              "shortDescription": {
-                "text": "Insecure template rendering detected."
-              },
-              "fullDescription": {
-                "text": "Insecure template rendering detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nDo not include externally influenced or user-given input data in rendered templates. This is bad practice and can lead to code injection attacks.\n\n## Remediations\n✅ Always validate external data (for example, with a safe list) before rendering it in a template.\n\n✅ Sanitize external data before rendering it in a template to remove special characters that could introduce an injection attack.\n\n## Resources\n- [OWASP Injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html#injection-prevention-rules)\n",
-                "markdown": "## Description\nDo not include externally influenced or user-given input data in rendered templates. This is bad practice and can lead to code injection attacks.\n\n## Remediations\n✅ Always validate external data (for example, with a safe list) before rendering it in a template.\n\n✅ Sanitize external data before rendering it in a template to remove special characters that could introduce an injection attack.\n\n## Resources\n- [OWASP Injection prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html#injection-prevention-rules)\n"
-              }
-            },
-            {
-              "id": "javascript_express_helmet_missing",
-              "name": "javascript_express_helmet_missing",
-              "shortDescription": {
-                "text": "Security misconfiguration detected."
-              },
-              "fullDescription": {
-                "text": "Security misconfiguration detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nHelmet can help protect your app from some well-known web vulnerabilities by setting HTTP headers appropriately.\n\n## Remediations\n\n✅ Use Helmet middleware\n\n```javascript\nconst helmet = require(\"helmet\")\napp.use(helmet())\n```\n\n## Resources\n\n- [Express Security Best Practices: Use Helmet](https://expressjs.com/en/advanced/best-practice-security.html#use-helmet)\n",
-                "markdown": "## Description\n\nHelmet can help protect your app from some well-known web vulnerabilities by setting HTTP headers appropriately.\n\n## Remediations\n\n✅ Use Helmet middleware\n\n```javascript\nconst helmet = require(\"helmet\")\napp.use(helmet())\n```\n\n## Resources\n\n- [Express Security Best Practices: Use Helmet](https://expressjs.com/en/advanced/best-practice-security.html#use-helmet)\n"
-              }
-            },
-            {
-              "id": "javascript_express_insecure_cookie",
-              "name": "javascript_express_insecure_cookie",
-              "shortDescription": {
-                "text": "Missing secure options for cookie detected."
-              },
-              "fullDescription": {
-                "text": "Missing secure options for cookie detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nTo make sure cookies don't open your application up to exploits or unauthorized access, make sure to set security options appropriately.\n\n## Remediations\n✅ Set cookie security values to use HTTP(S) instead of client-side javascript.\n\n✅ Set `secure` values to `true` to force cookies to only send over HTTPS.\n\n## Resources\n- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html#use-cookies-securely)\n",
-                "markdown": "## Description\nTo make sure cookies don't open your application up to exploits or unauthorized access, make sure to set security options appropriately.\n\n## Remediations\n✅ Set cookie security values to use HTTP(S) instead of client-side javascript.\n\n✅ Set `secure` values to `true` to force cookies to only send over HTTPS.\n\n## Resources\n- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html#use-cookies-securely)\n"
-              }
-            },
-            {
-              "id": "javascript_express_exposed_dir_listing",
-              "name": "javascript_express_exposed_dir_listing",
-              "shortDescription": {
-                "text": "Missing access restriction to directory listing detected."
-              },
-              "fullDescription": {
-                "text": "Missing access restriction to directory listing detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nInappropriate exposure of a directory listing could give attackers access to sensitive data or source code, either directly or through exploitation of an exposed file structure.\n\n## Remediations\n✅ Restrict access to sensitive directories and files\n\n## Resources\n- [Express Serve index middleware](https://expressjs.com/en/resources/middleware/serve-index.html)\n",
-                "markdown": "## Description\nInappropriate exposure of a directory listing could give attackers access to sensitive data or source code, either directly or through exploitation of an exposed file structure.\n\n## Remediations\n✅ Restrict access to sensitive directories and files\n\n## Resources\n- [Express Serve index middleware](https://expressjs.com/en/resources/middleware/serve-index.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_static_asset_with_session",
-              "name": "javascript_express_static_asset_with_session",
-              "shortDescription": {
-                "text": "Static asset with active session detected."
-              },
-              "fullDescription": {
-                "text": "Static asset with active session detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nStatic assets are often cached by services in front of the application\n(eg. CDNs). Serving static assets with sessions enabled may lead to\nCross-Site Request Forgery (CSRF) attacks that can hijack a user's session.\n\n## Remediations\n\n✅ Ensure static resources are handled prior to session initialization:\n\n```javascript\n  // static middleware should be added before session middleware\n  app.use(express.static(__dirname + \"/public\"))\n\n  app.use(session())\n```\n",
-                "markdown": "## Description\nStatic assets are often cached by services in front of the application\n(eg. CDNs). Serving static assets with sessions enabled may lead to\nCross-Site Request Forgery (CSRF) attacks that can hijack a user's session.\n\n## Remediations\n\n✅ Ensure static resources are handled prior to session initialization:\n\n```javascript\n  // static middleware should be added before session middleware\n  app.use(express.static(__dirname + \"/public\"))\n\n  app.use(session())\n```\n"
-              }
-            },
-            {
-              "id": "javascript_lang_raw_html_using_user_input",
-              "name": "javascript_lang_raw_html_using_user_input",
-              "shortDescription": {
-                "text": "Unsanitized user input detected in raw HTML string."
-              },
-              "fullDescription": {
-                "text": "Unsanitized user input detected in raw HTML string."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nApplications should not include unsanitized user input in HTML. This\ncan allow cross-site scripting (XSS) attacks.\n\n## Remediations\n\n❌ Avoid including user input directly in HTML strings:\n\n```javascript\nconst html = `<h1>${req.params.title}</h1>`\n```\n\n✅ Use a framework or templating language to construct the HTML.\n\n✅ When HTML strings must be used, sanitize user input:\n\n```javascript\nimport sanitizeHtml from 'sanitize-html'\n\nconst sanitizedTitle = sanitizeHtml(req.params.title)\nconst html = `<h1>${sanitizedTitle}</h1>`\n```\n\n## Resources\n- [OWASP Cross-Site Scripting (XSS) Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n",
-                "markdown": "## Description\n\nApplications should not include unsanitized user input in HTML. This\ncan allow cross-site scripting (XSS) attacks.\n\n## Remediations\n\n❌ Avoid including user input directly in HTML strings:\n\n```javascript\nconst html = `<h1>${req.params.title}</h1>`\n```\n\n✅ Use a framework or templating language to construct the HTML.\n\n✅ When HTML strings must be used, sanitize user input:\n\n```javascript\nimport sanitizeHtml from 'sanitize-html'\n\nconst sanitizedTitle = sanitizeHtml(req.params.title)\nconst html = `<h1>${sanitizedTitle}</h1>`\n```\n\n## Resources\n- [OWASP Cross-Site Scripting (XSS) Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_eval_user_input",
-              "name": "javascript_express_eval_user_input",
-              "shortDescription": {
-                "text": "Dangerous use of eval with user input detected"
-              },
-              "fullDescription": {
-                "text": "Dangerous use of eval with user input detected"
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nUsing `eval` (and similar code execution methods such as `setTimeout`) with user input is dangerous and can lead to remote code execution.\n\n## Remediation\n❌ As a general rule, avoid using `eval`.\n\n❌ Avoid using code execution methods with unsanitized user input.\n\nInstead, it might be possible to use dynamic hardcoded values:\n```javascript\n  app.post(\"/:id\", (req, res) => {\n    let myFunc = \"(a, b) => a + b\"\n    if req.params[\"single_item\"] {\n      myFunc = \"(a) => a\"\n    }\n\n    setTimeout(myFunc);\n  };\n```\nor pass user input to a compiled function, instead of compiling it with user input.\n```javascript\n  app.post(\"/:id\", (req, res) => {\n    let myFunc = \"(a, b) => a + b\"\n    let compiledFunction = vm.compileFunction(myFunc);\n    compiledFunction(req.params[\"pageCount\"], req.params[\"appendixPageCount\"])\n  };\n```\n\n✅ Use JavaScript's strict mode as best practice and to minimize the reach of code execution methods\n\n```javascript\n  \"use strict\"\n\n  app.post(\"/:id\", (req, res) => {\n    ...\n  })\n```\n\n## Resources\n- [MDN JavaScript strict mode reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)\n",
-                "markdown": "## Description\nUsing `eval` (and similar code execution methods such as `setTimeout`) with user input is dangerous and can lead to remote code execution.\n\n## Remediation\n❌ As a general rule, avoid using `eval`.\n\n❌ Avoid using code execution methods with unsanitized user input.\n\nInstead, it might be possible to use dynamic hardcoded values:\n```javascript\n  app.post(\"/:id\", (req, res) => {\n    let myFunc = \"(a, b) => a + b\"\n    if req.params[\"single_item\"] {\n      myFunc = \"(a) => a\"\n    }\n\n    setTimeout(myFunc);\n  };\n```\nor pass user input to a compiled function, instead of compiling it with user input.\n```javascript\n  app.post(\"/:id\", (req, res) => {\n    let myFunc = \"(a, b) => a + b\"\n    let compiledFunction = vm.compileFunction(myFunc);\n    compiledFunction(req.params[\"pageCount\"], req.params[\"appendixPageCount\"])\n  };\n```\n\n✅ Use JavaScript's strict mode as best practice and to minimize the reach of code execution methods\n\n```javascript\n  \"use strict\"\n\n  app.post(\"/:id\", (req, res) => {\n    ...\n  })\n```\n\n## Resources\n- [MDN JavaScript strict mode reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_websocket_insecure",
-              "name": "javascript_lang_websocket_insecure",
-              "shortDescription": {
-                "text": "Insecure websocket communication detected."
-              },
-              "fullDescription": {
-                "text": "Insecure websocket communication detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nApplications should only connect to APIs using SSL connections. This rule\nchecks that all websocket connections use SSL.\n\n## Remediations\n\n❌ Avoid using unsecured outgoing websocket communication:\n\n```javascript\nconst client = new WebSocket('ws://insecure-api.com')\n```\n\n✅ Always connect using SSL:\n\n```javascript\nconst client = new WebSocket('wss://secure-api.com')\n```\n\n## Resources\n- [OWASP insecure transport](https://owasp.org/www-community/vulnerabilities/Insecure_Transport)\n",
-                "markdown": "## Description\n\nApplications should only connect to APIs using SSL connections. This rule\nchecks that all websocket connections use SSL.\n\n## Remediations\n\n❌ Avoid using unsecured outgoing websocket communication:\n\n```javascript\nconst client = new WebSocket('ws://insecure-api.com')\n```\n\n✅ Always connect using SSL:\n\n```javascript\nconst client = new WebSocket('wss://secure-api.com')\n```\n\n## Resources\n- [OWASP insecure transport](https://owasp.org/www-community/vulnerabilities/Insecure_Transport)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_weak_encryption",
-              "name": "javascript_lang_weak_encryption",
-              "shortDescription": {
-                "text": "Weak encryption library usage detected."
-              },
-              "fullDescription": {
-                "text": "Weak encryption library usage detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nSensitive data should be encrypted with strong encryption algorithms like aes-256-cbc\n\n## Remediations\n\nAccording to [OWASP](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption): MD5, RC4, DES, Blowfish, SHA1. 1024-bit RSA or DSA, 160-bit ECDSA (elliptic curves), 80/112-bit 2TDEA (two key triple DES) are considered as weak hash/encryption algorithms and therefore shouldn't be used.\n\n✅ Use stronger encryption algorithms when storing data.\n\n```javascript\nconst crypto = require(\"crypto\");\n\nconst key = \"secret key\";\nconst encrypted = crypto.createHmac(\"es-256-cbc\", key).update(user.password);\n```\n\n## Resources\n- [NodeJS Crypto Module](https://nodejs.org/api/crypto.html#cryptocreatehmacalgorithm-key-options)\n",
-                "markdown": "## Description\n\nSensitive data should be encrypted with strong encryption algorithms like aes-256-cbc\n\n## Remediations\n\nAccording to [OWASP](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption): MD5, RC4, DES, Blowfish, SHA1. 1024-bit RSA or DSA, 160-bit ECDSA (elliptic curves), 80/112-bit 2TDEA (two key triple DES) are considered as weak hash/encryption algorithms and therefore shouldn't be used.\n\n✅ Use stronger encryption algorithms when storing data.\n\n```javascript\nconst crypto = require(\"crypto\");\n\nconst key = \"secret key\";\nconst encrypted = crypto.createHmac(\"es-256-cbc\", key).update(user.password);\n```\n\n## Resources\n- [NodeJS Crypto Module](https://nodejs.org/api/crypto.html#cryptocreatehmacalgorithm-key-options)\n"
-              }
-            },
-            {
-              "id": "javascript_aws_lambda_os_command_injection",
-              "name": "javascript_aws_lambda_os_command_injection",
-              "shortDescription": {
-                "text": "OS command injection vulnerability detected."
-              },
-              "fullDescription": {
-                "text": "OS command injection vulnerability detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nUsing external or user-defined input directly in an OS command can allow attackers to perform dangerous commands on the operating system.\n\n## Remediations\n\nThink twice if user input is really needed there.\n\nIt might be possible to use dynamic hardcoded values:\n\n```javascript\nexports.handler = async (event) => {\n    let filePattern = \"*.js\"\n\n    if event[\"graphql\"] {\n      filePattern = \"*.gql\"\n    }\n\n    cp.exec(`cp ${filePattern} foo`, (error, stdout, stderr) => {});\n};\n```\n\n## Resources\n- [OWASP command injection explained](https://owasp.org/www-community/attacks/Command_Injection)\n",
-                "markdown": "## Description\nUsing external or user-defined input directly in an OS command can allow attackers to perform dangerous commands on the operating system.\n\n## Remediations\n\nThink twice if user input is really needed there.\n\nIt might be possible to use dynamic hardcoded values:\n\n```javascript\nexports.handler = async (event) => {\n    let filePattern = \"*.js\"\n\n    if event[\"graphql\"] {\n      filePattern = \"*.gql\"\n    }\n\n    cp.exec(`cp ${filePattern} foo`, (error, stdout, stderr) => {});\n};\n```\n\n## Resources\n- [OWASP command injection explained](https://owasp.org/www-community/attacks/Command_Injection)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_regex_using_user_input",
-              "name": "javascript_lang_regex_using_user_input",
-              "shortDescription": {
-                "text": "Regular expression built from user input detected."
-              },
-              "fullDescription": {
-                "text": "Regular expression built from user input detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nApplications should avoid constructing regular expressions from user input.\nRegular expressions can have exponential worst-case computational\ncomplexity, allowing users to trigger this behaviour can result in\nexcessive CPU consumption causing a regular expression denial of service (ReDoS).\n\n## Remediations\n\n❌ Avoid using untrusted or user data when building regular expressions\n\n## Resources\n- [OWASP ReDoS attacks explained](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)\n",
-                "markdown": "## Description\n\nApplications should avoid constructing regular expressions from user input.\nRegular expressions can have exponential worst-case computational\ncomplexity, allowing users to trigger this behaviour can result in\nexcessive CPU consumption causing a regular expression denial of service (ReDoS).\n\n## Remediations\n\n❌ Avoid using untrusted or user data when building regular expressions\n\n## Resources\n- [OWASP ReDoS attacks explained](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)\n"
-              }
-            },
-            {
-              "id": "javascript_express_unsafe_deserialization",
-              "name": "javascript_express_unsafe_deserialization",
-              "shortDescription": {
-                "text": "Deserialization of untrusted data detected."
-              },
-              "fullDescription": {
-                "text": "Deserialization of untrusted data detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nIt is bad practice to deserialize (unmarshal) untrusted data, such as data direct from the request object.\nAttackers can transfer payloads or malicious code via serialized data, and deserializing such data puts your application at risk.\n\n## Remediations\n❌ Do not deserialize untrusted data\n\n✅ Prefer pure (data-only) and language-agnostic (de)serialization formats such as JSON or XML\n\nAvoiding language-specific (de)serialization formats reduces the risk of attackers manipulating the deserialization process for malicious purposes.\n\n```javascript\n  JSON.parse(req.params)\n```\n\n## Resources\n- [OWASP Deserialization cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nIt is bad practice to deserialize (unmarshal) untrusted data, such as data direct from the request object.\nAttackers can transfer payloads or malicious code via serialized data, and deserializing such data puts your application at risk.\n\n## Remediations\n❌ Do not deserialize untrusted data\n\n✅ Prefer pure (data-only) and language-agnostic (de)serialization formats such as JSON or XML\n\nAvoiding language-specific (de)serialization formats reduces the risk of attackers manipulating the deserialization process for malicious purposes.\n\n```javascript\n  JSON.parse(req.params)\n```\n\n## Resources\n- [OWASP Deserialization cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_default_session_config",
-              "name": "javascript_express_default_session_config",
-              "shortDescription": {
-                "text": "Session cookie with default config detected."
-              },
-              "fullDescription": {
-                "text": "Session cookie with default config detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nTo make sure session cookies don't open your application up to exploits or unauthorized access, don't use default cookie values.\n\n## Remediations\n✅ Instead of the default session name, use generic names.\n\n## Resources\n- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html#use-cookies-securely)\n",
-                "markdown": "## Description\nTo make sure session cookies don't open your application up to exploits or unauthorized access, don't use default cookie values.\n\n## Remediations\n✅ Instead of the default session name, use generic names.\n\n## Resources\n- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html#use-cookies-securely)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_bugsnag",
-              "name": "javascript_third_parties_bugsnag",
-              "shortDescription": {
-                "text": "Sensitive data sent to Bugsnag detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Bugsnag detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Bugsnag.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  import { Bugsnag } from \"@bugsnag/js\"\n\n  var bugSession = Bugsnag.startSession()\n  bugSession.notify(user.uuid)\n```\n\n## Resources\n- [Bugsnag Docs](https://docs.bugsnag.com/platforms/javascript/)\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Bugsnag.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  import { Bugsnag } from \"@bugsnag/js\"\n\n  var bugSession = Bugsnag.startSession()\n  bugSession.notify(user.uuid)\n```\n\n## Resources\n- [Bugsnag Docs](https://docs.bugsnag.com/platforms/javascript/)\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_insecure_allow_origin",
-              "name": "javascript_express_insecure_allow_origin",
-              "shortDescription": {
-                "text": "Insecure Access-Control-Allow-Origin detected."
-              },
-              "fullDescription": {
-                "text": "Insecure Access-Control-Allow-Origin detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nDo not use unverified user-defined input to define Access-Control-Allow-Origin. This can lead to unintended user access to sensitive data.\n\n## Remediations\n❌ Avoid defining origins with user input wherever possible.\n\n✅ If unavoidable, be sure to verify the input or to use a safe-list.\n\n## Resources\n- [OWASP Origin & Access-Control-Allow-Origin](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing)\n",
-                "markdown": "## Description\nDo not use unverified user-defined input to define Access-Control-Allow-Origin. This can lead to unintended user access to sensitive data.\n\n## Remediations\n❌ Avoid defining origins with user input wherever possible.\n\n✅ If unavoidable, be sure to verify the input or to use a safe-list.\n\n## Resources\n- [OWASP Origin & Access-Control-Allow-Origin](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_exception",
-              "name": "javascript_lang_exception",
-              "shortDescription": {
-                "text": "Sensitive data in a exception message detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data in a exception message detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nLeaking sensitive data to an exception is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to exceptions.\n\n## Remediations\n\n❌ Avoid using sensitive data in exception messages:\n\n```javascript\nthrow new CustomError(`Error with ${user.email}`)\n```\n\n✅ If you need to identify a user, ensure to use their unique identifier instead of their personal identifiable information:\n\n```javascript\nthrow new CustomError(`Error with ${user.uuid}`)\n```\n<!--\n## Resources\nComing soon.\n-->\n",
-                "markdown": "## Description\n\nLeaking sensitive data to an exception is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to exceptions.\n\n## Remediations\n\n❌ Avoid using sensitive data in exception messages:\n\n```javascript\nthrow new CustomError(`Error with ${user.email}`)\n```\n\n✅ If you need to identify a user, ensure to use their unique identifier instead of their personal identifiable information:\n\n```javascript\nthrow new CustomError(`Error with ${user.uuid}`)\n```\n<!--\n## Resources\nComing soon.\n-->\n"
-              }
-            },
-            {
-              "id": "javascript_lang_format_string_using_user_input",
-              "name": "javascript_lang_format_string_using_user_input",
-              "shortDescription": {
-                "text": "User input in format string detected."
-              },
-              "fullDescription": {
-                "text": "User input in format string detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nIf an application includes user input directly in a format string, an\nattacker can use format specifiers in the user input to produce misleading\nor fabricated messages.\n\n## Remediations\n\n❌ Avoid format strings containing user input:\n\n```javascript\nconsole.log(`The value was ${req.params.value}`)\n```\n\n✅ Use a literal format string with additional arguments:\n\n```javascript\nconsole.log(\"The value was %s\", req.params.value)\n```\n",
-                "markdown": "## Description\n\nIf an application includes user input directly in a format string, an\nattacker can use format specifiers in the user input to produce misleading\nor fabricated messages.\n\n## Remediations\n\n❌ Avoid format strings containing user input:\n\n```javascript\nconsole.log(`The value was ${req.params.value}`)\n```\n\n✅ Use a literal format string with additional arguments:\n\n```javascript\nconsole.log(\"The value was %s\", req.params.value)\n```\n"
-              }
-            },
-            {
-              "id": "javascript_aws_lambda_query_injection",
-              "name": "javascript_aws_lambda_query_injection",
-              "shortDescription": {
-                "text": "Raw user input in data store query detected."
-              },
-              "fullDescription": {
-                "text": "Raw user input in data store query detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nIncluding unsanitized data, such as user input or request data, in raw queries makes your application vulnerable to injection attacks.\n\n## Remediations\n\nNarrow down your query from the code instead of using unsanitzed user input to define it.\n\nExample:\n\n```javascript\nexports.handler = async function(event, context) {\n    var params = {\n        Key: {\n         \"artist\": {\"S\": event.input },\n         \"song\": {\"S\": \"Carrot Eton\"}\n        },\n        TableName: \"artists\"\n    };\n    var result = await dynamodb.getItem(params).promise()\n    console.log(JSON.stringify(result))\n}\n```\n\n\n## Resources\n- [OWASP nosql injection explained](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection)\n",
-                "markdown": "## Description\nIncluding unsanitized data, such as user input or request data, in raw queries makes your application vulnerable to injection attacks.\n\n## Remediations\n\nNarrow down your query from the code instead of using unsanitzed user input to define it.\n\nExample:\n\n```javascript\nexports.handler = async function(event, context) {\n    var params = {\n        Key: {\n         \"artist\": {\"S\": event.input },\n         \"song\": {\"S\": \"Carrot Eton\"}\n        },\n        TableName: \"artists\"\n    };\n    var result = await dynamodb.getItem(params).promise()\n    console.log(JSON.stringify(result))\n}\n```\n\n\n## Resources\n- [OWASP nosql injection explained](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_jwt",
-              "name": "javascript_lang_jwt",
-              "shortDescription": {
-                "text": "Sensitive data in a JWT detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data in a JWT detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nJWTs are not a secure place to store sensitive data. This rule looks for any sensitive data types saved to a JWT.\n\n## Remediations\n\n❌ Avoid storing sensitive data in JWTs:\n\n```javascript\n  const jwt = require('jsonwebtoken');\n  const token = jwt.sign({ user: { email: 'jhon@gmail.com' }});\n```\n\n✅ If you need to store user's information, use their unique database identifier instead of personal identifiable information:\n\n```javascript\n  const jwt = require('jsonwebtoken');\n  const token = jwt.sign({ user: user.uuid });\n```\n\n## Resources\n  - [OWASP sensitive data exposure](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure)\n",
-                "markdown": "## Description\n\nJWTs are not a secure place to store sensitive data. This rule looks for any sensitive data types saved to a JWT.\n\n## Remediations\n\n❌ Avoid storing sensitive data in JWTs:\n\n```javascript\n  const jwt = require('jsonwebtoken');\n  const token = jwt.sign({ user: { email: 'jhon@gmail.com' }});\n```\n\n✅ If you need to store user's information, use their unique database identifier instead of personal identifiable information:\n\n```javascript\n  const jwt = require('jsonwebtoken');\n  const token = jwt.sign({ user: user.uuid });\n```\n\n## Resources\n  - [OWASP sensitive data exposure](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_http_url_using_user_input",
-              "name": "javascript_lang_http_url_using_user_input",
-              "shortDescription": {
-                "text": "HTTP communication with user-controlled destination detected."
-              },
-              "fullDescription": {
-                "text": "HTTP communication with user-controlled destination detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nApplications should not connect to locations formed from user input.\nThis rule checks for URLs containing user-supplied data.\n\n## Remediations\n\n❌ Avoid using user input in HTTP URLs:\n\n```javascript\nconst response = axios.get(`https://${req.params.host}`)\n```\n\n✅ Use user input indirectly to form a URL:\n\n```javascript\nconst hosts = new Map([\n  [\"option1\", \"api1.com\"],\n  [\"option2\", \"api2.com\"]\n])\n\nconst host = hosts.get(req.params.host)\nconst response = axois.get(`https://${host}`)\n```\n",
-                "markdown": "## Description\n\nApplications should not connect to locations formed from user input.\nThis rule checks for URLs containing user-supplied data.\n\n## Remediations\n\n❌ Avoid using user input in HTTP URLs:\n\n```javascript\nconst response = axios.get(`https://${req.params.host}`)\n```\n\n✅ Use user input indirectly to form a URL:\n\n```javascript\nconst hosts = new Map([\n  [\"option1\", \"api1.com\"],\n  [\"option2\", \"api2.com\"]\n])\n\nconst host = hosts.get(req.params.host)\nconst response = axois.get(`https://${host}`)\n```\n"
-              }
-            },
-            {
-              "id": "javascript_lang_weak_password_encryption",
-              "name": "javascript_lang_weak_password_encryption",
-              "shortDescription": {
-                "text": "Weak encryption library usage detected."
-              },
-              "fullDescription": {
-                "text": "Weak encryption library usage detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nPasswords should be encrypted with strong encryption algorithms like aes-256-cbc\n\n## Remediations\n\nAccording to [OWASP](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption): MD5, RC4, DES, Blowfish, SHA1. 1024-bit RSA or DSA, 160-bit ECDSA (elliptic curves), 80/112-bit 2TDEA (two key triple DES) are considered as weak hash/encryption algorithms and therefore shouldn't be used.\n\n✅ Use stronger encryption algorithms when storing passwords.\n\n```javascript\nconst crypto = require(\"crypto\");\n\nconst key = \"secret key\";\nconst encrypted = crypto.createHmac(\"es-256-cbc\", key).update(user.password);\n```\n\n## Resources\n- [NodeJS Crypto Module](https://nodejs.org/api/crypto.html#cryptocreatehmacalgorithm-key-options)\n",
-                "markdown": "## Description\n\nPasswords should be encrypted with strong encryption algorithms like aes-256-cbc\n\n## Remediations\n\nAccording to [OWASP](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption): MD5, RC4, DES, Blowfish, SHA1. 1024-bit RSA or DSA, 160-bit ECDSA (elliptic curves), 80/112-bit 2TDEA (two key triple DES) are considered as weak hash/encryption algorithms and therefore shouldn't be used.\n\n✅ Use stronger encryption algorithms when storing passwords.\n\n```javascript\nconst crypto = require(\"crypto\");\n\nconst key = \"secret key\";\nconst encrypted = crypto.createHmac(\"es-256-cbc\", key).update(user.password);\n```\n\n## Resources\n- [NodeJS Crypto Module](https://nodejs.org/api/crypto.html#cryptocreatehmacalgorithm-key-options)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_honeybadger",
-              "name": "javascript_third_parties_honeybadger",
-              "shortDescription": {
-                "text": "Sensitive data sent to Honeybadger detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Honeybadger detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nLeaking sensitive data to third-party error logging tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Honeybadger.\n\n## Remediations\n\nWhen sending data to logging libraries, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  const Honeybadger = require(\"@honeybadger-io/js\");\n\n  let context = { user: { uuid: \"aacd05fd-8f5b-4bc6-aa8b-35e5fbf37325\" } };\n\n  Honeybadger.setContext(context);\n```\n\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\n\nLeaking sensitive data to third-party error logging tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Honeybadger.\n\n## Remediations\n\nWhen sending data to logging libraries, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  const Honeybadger = require(\"@honeybadger-io/js\");\n\n  let context = { user: { uuid: \"aacd05fd-8f5b-4bc6-aa8b-35e5fbf37325\" } };\n\n  Honeybadger.setContext(context);\n```\n\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_algolia",
-              "name": "javascript_third_parties_algolia",
-              "shortDescription": {
-                "text": "Sensitive data sent to Algolia detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Algolia detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party data tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Algolia.\n\n## Remediations\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  const algoliaSearch = require('algoliasearch')\n  const myAlgolia = algoliaSearch(\"123\", \"123\")\n  const index = myAlgolia.initIndex(user.uuid)\n```\n\n## Resources\n- [Algolia docs](https://www.algolia.com/doc/)\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party data tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Algolia.\n\n## Remediations\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  const algoliaSearch = require('algoliasearch')\n  const myAlgolia = algoliaSearch(\"123\", \"123\")\n  const index = myAlgolia.initIndex(user.uuid)\n```\n\n## Resources\n- [Algolia docs](https://www.algolia.com/doc/)\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_express_path_traversal",
-              "name": "javascript_express_path_traversal",
-              "shortDescription": {
-                "text": "Possible path traversal vulnerability detected."
-              },
-              "fullDescription": {
-                "text": "Possible path traversal vulnerability detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nAllowing unsanitized user input in path resolution methods means an attacker could gain access to files and folders outside of the intended scope.\n\n## Remediations\n❌ Avoid wherever possible\n\n✅ Sanitize user input when resolving paths, for example:\n- Use `replace()` to mitigate against unwanted patterns in the path (such as `\\..\\..`)\n- Actively guard against paths that end in \"%00\" (poison NULL byte attacks)\n- Use path concatenation to ensure the intended scope is respected\n\n```javascript\nconst path = require(\"path\");\n\napp.get(\"/\", (req, res) => {\n  if (req.params.path.indexOf('\\0')) !== -1 {\n    // prevent access\n  }\n\n  var folder = req.params.path.replace(/^(\\.\\.(\\/|\\\\|$))+/, '')\n\n  var pathname = path.join(\"/public/\", folder)\n  if pathname.indexOf(\"/public/\") !== 0 {\n    // prevent access\n  }\n\n  path.resolve(pathname)\n})\n```\n\n## Resources\n- [OWASP path traversal](https://owasp.org/www-community/attacks/Path_Traversal)\n",
-                "markdown": "## Description\nAllowing unsanitized user input in path resolution methods means an attacker could gain access to files and folders outside of the intended scope.\n\n## Remediations\n❌ Avoid wherever possible\n\n✅ Sanitize user input when resolving paths, for example:\n- Use `replace()` to mitigate against unwanted patterns in the path (such as `\\..\\..`)\n- Actively guard against paths that end in \"%00\" (poison NULL byte attacks)\n- Use path concatenation to ensure the intended scope is respected\n\n```javascript\nconst path = require(\"path\");\n\napp.get(\"/\", (req, res) => {\n  if (req.params.path.indexOf('\\0')) !== -1 {\n    // prevent access\n  }\n\n  var folder = req.params.path.replace(/^(\\.\\.(\\/|\\\\|$))+/, '')\n\n  var pathname = path.join(\"/public/\", folder)\n  if pathname.indexOf(\"/public/\") !== 0 {\n    // prevent access\n  }\n\n  path.resolve(pathname)\n})\n```\n\n## Resources\n- [OWASP path traversal](https://owasp.org/www-community/attacks/Path_Traversal)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_new_relic",
-              "name": "javascript_third_parties_new_relic",
-              "shortDescription": {
-                "text": "Sensitive data sent to New Relic detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to New Relic detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to New Relic.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\n## Resources\n- [New Relic Docs](https://docs.newrelic.com/)\n- [Log obfuscation](https://docs.newrelic.com/docs/logs/ui-data/obfuscation-ui/)\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to New Relic.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\n## Resources\n- [New Relic Docs](https://docs.newrelic.com/)\n- [Log obfuscation](https://docs.newrelic.com/docs/logs/ui-data/obfuscation-ui/)\n"
-              }
-            },
-            {
-              "id": "javascript_express_open_redirect",
-              "name": "javascript_express_open_redirect",
-              "shortDescription": {
-                "text": "Open redirect detected."
-              },
-              "fullDescription": {
-                "text": "Open redirect detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nA redirect using unsanitized user input is bad practice and puts your application at greater risk of phishing attacks.\n\n## Remediations\n❌ Do not use unsanitized user input when constructing URLs\n\n✅ Instead, ensure the input is validated by using a safe list or a mapping when constructing URLs\n\n```javascript\n  var map = {\n    \"1\": \"/planes\",\n    \"2\": \"/trains\",\n    \"3\": \"/automobiles\",\n  }\n\n  res.redirect(map[req.body.transport])\n```\n## Resources\n- [OWASP open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nA redirect using unsanitized user input is bad practice and puts your application at greater risk of phishing attacks.\n\n## Remediations\n❌ Do not use unsanitized user input when constructing URLs\n\n✅ Instead, ensure the input is validated by using a safe list or a mapping when constructing URLs\n\n```javascript\n  var map = {\n    \"1\": \"/planes\",\n    \"2\": \"/trains\",\n    \"3\": \"/automobiles\",\n  }\n\n  res.redirect(map[req.body.transport])\n```\n## Resources\n- [OWASP open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_passport_hardcoded_secret",
-              "name": "javascript_third_parties_passport_hardcoded_secret",
-              "shortDescription": {
-                "text": "Hardcoded passport secret detected"
-              },
-              "fullDescription": {
-                "text": "Hardcoded passport secret detected"
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nCode is not a safe place to store secrets, use environment variables instead.\n\n##  Remediations\n\nUse environment variables instead\n\n```javascript\n  const strategy = new GoogleStrategy({ clientSecret: process.ENV.GOOGLE_SECRET });\n  passport.use(strategy);\n```\n\n## Resources\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n",
-                "markdown": "## Description\n\nCode is not a safe place to store secrets, use environment variables instead.\n\n##  Remediations\n\nUse environment variables instead\n\n```javascript\n  const strategy = new GoogleStrategy({ clientSecret: process.ENV.GOOGLE_SECRET });\n  passport.use(strategy);\n```\n\n## Resources\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_airbrake",
-              "name": "javascript_third_parties_airbrake",
-              "shortDescription": {
-                "text": "Sensitive data sent to Airbrake detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Airbrake detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Airbrake.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\nairbrake.notify({\n  error: err,\n  params: { user: user.uuid },\n});\n```\n\n## Resources\n- [Airbrake Docs](https://docs.airbrake.io/)\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Airbrake.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\nairbrake.notify({\n  error: err,\n  params: { user: user.uuid },\n});\n```\n\n## Resources\n- [Airbrake Docs](https://docs.airbrake.io/)\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_manual_html_sanitization",
-              "name": "javascript_lang_manual_html_sanitization",
-              "shortDescription": {
-                "text": "Manual HTML sanitization detected."
-              },
-              "fullDescription": {
-                "text": "Manual HTML sanitization detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nSanitizing HTML manually is error prone and can lead to Cross Site\nScripting (XSS) vulnerabilities.\n\n## Remediations\n\n❌ Avoid manually escaping HTML:\n\n```javascript\nconst sanitizedUserInput = user.Input\n  .replaceAll('<', '&lt;')\n  .replaceAll('>', '&gt;');\nconst html = `<strong>${sanitizedUserInput}</strong>`;\n```\n\n✅ Use a HTML sanitization library:\n\n```javascript\nimport sanitizeHtml from 'sanitize-html';\n\nconst html = sanitizeHtml(`<strong>${user.Input}</strong>`);\n```\n\n## Resources\n- [OWASP XSS explained](https://owasp.org/www-community/attacks/xss/)\n",
-                "markdown": "## Description\nSanitizing HTML manually is error prone and can lead to Cross Site\nScripting (XSS) vulnerabilities.\n\n## Remediations\n\n❌ Avoid manually escaping HTML:\n\n```javascript\nconst sanitizedUserInput = user.Input\n  .replaceAll('<', '&lt;')\n  .replaceAll('>', '&gt;');\nconst html = `<strong>${sanitizedUserInput}</strong>`;\n```\n\n✅ Use a HTML sanitization library:\n\n```javascript\nimport sanitizeHtml from 'sanitize-html';\n\nconst html = sanitizeHtml(`<strong>${user.Input}</strong>`);\n```\n\n## Resources\n- [OWASP XSS explained](https://owasp.org/www-community/attacks/xss/)\n"
-              }
-            },
-            {
-              "id": "javascript_express_jwt_not_revoked",
-              "name": "javascript_express_jwt_not_revoked",
-              "shortDescription": {
-                "text": "Unrevoked JWT detected."
-              },
-              "fullDescription": {
-                "text": "Unrevoked JWT detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nThe best practice caching policy is to revoke JWTs especially when these contain senstitive information.\n\n## Remediations\n✅ Ensure JWTs are short-lived by revoking them\n\n```javascript\nexpressjwt({\n  ...\n  isRevoked: this.customRevokeCall(),\n  ...\n})\n```\n\n## Resources\n- [ExpressJWT documentation on revoking tokens](https://github.com/auth0/express-jwt#revoked-tokens)\n",
-                "markdown": "## Description\nThe best practice caching policy is to revoke JWTs especially when these contain senstitive information.\n\n## Remediations\n✅ Ensure JWTs are short-lived by revoking them\n\n```javascript\nexpressjwt({\n  ...\n  isRevoked: this.customRevokeCall(),\n  ...\n})\n```\n\n## Resources\n- [ExpressJWT documentation on revoking tokens](https://github.com/auth0/express-jwt#revoked-tokens)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_logger",
-              "name": "javascript_lang_logger",
-              "shortDescription": {
-                "text": "Sensitive data in a logger message detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data in a logger message detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nLeaking sensitive data to loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to loggers.\n\n## Remediations\n\n❌ Avoid using sensitive data in logger messages:\n\n```javascript\nlogger.info(`User is: ${user.email}`)\n```\n\n✅ If you need to identify a user, use their unique identifier instead of their personal identifiable information:\n\n```javascript\nlogger.info(`User is: ${user.uuid}`)\n```\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\n\nLeaking sensitive data to loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to loggers.\n\n## Remediations\n\n❌ Avoid using sensitive data in logger messages:\n\n```javascript\nlogger.info(`User is: ${user.email}`)\n```\n\n✅ If you need to identify a user, use their unique identifier instead of their personal identifiable information:\n\n```javascript\nlogger.info(`User is: ${user.uuid}`)\n```\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_datadog",
-              "name": "javascript_third_parties_datadog",
-              "shortDescription": {
-                "text": "Sensitive data sent to Datadog detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Datadog detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Datadog.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  const StatsD = require(\"hot-shots\");\n  const client = new StatsD({\n    port: 8020,\n    globalTags: { env: process.env.NODE_ENV },\n    errorHandler: errorHandler,\n  });\n\n  client.event(user.uuid, \"logged_in\", {});\n```\n\n## Resources\n- [Datadog docs](https://docs.datadoghq.com)\n- [Scrubbing data](https://docs.datadoghq.com/tracing/configure_data_security/?tab=mongodb#scrub-sensitive-data-from-your-spans)\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Datadog.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  const StatsD = require(\"hot-shots\");\n  const client = new StatsD({\n    port: 8020,\n    globalTags: { env: process.env.NODE_ENV },\n    errorHandler: errorHandler,\n  });\n\n  client.event(user.uuid, \"logged_in\", {});\n```\n\n## Resources\n- [Datadog docs](https://docs.datadoghq.com)\n- [Scrubbing data](https://docs.datadoghq.com/tracing/configure_data_security/?tab=mongodb#scrub-sensitive-data-from-your-spans)\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_segment",
-              "name": "javascript_third_parties_segment",
-              "shortDescription": {
-                "text": "Sensitive data sent to Segment detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Segment detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party analytics tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Segment.\n\n## Remediations\n\nWhen sending data to analytics libraries, ensure all sensitive data is removed.\n\n## Resources\n- [Segment Node.js docs](https://segment.com/docs/connections/sources/catalog/libraries/server/node/)\n- [Segment JavaScript docs](https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/)\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party analytics tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Segment.\n\n## Remediations\n\nWhen sending data to analytics libraries, ensure all sensitive data is removed.\n\n## Resources\n- [Segment Node.js docs](https://segment.com/docs/connections/sources/catalog/libraries/server/node/)\n- [Segment JavaScript docs](https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_hardcoded_secret",
-              "name": "javascript_lang_hardcoded_secret",
-              "shortDescription": {
-                "text": "Hardcoded secret detected"
-              },
-              "fullDescription": {
-                "text": "Hardcoded secret detected"
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nCode is not a safe place to store secrets, use environment variables instead.\n\n## Remediations\n```javascript\n  passport.use(new OAuth2Strategy({\n      authorizationURL: 'https://www.example.com/oauth2/authorize',\n      tokenURL: 'https://www.example.com/oauth2/token',\n      clientID:  process.env.CLIENT_ID,\n      clientSecret: process.env.CLIENT_SECRET,\n      callbackURL: \"http://localhost:3000/auth/example/callback\"\n    },\n    function(accessToken, refreshToken, profile, cb) {\n      User.findOrCreate({ exampleId: profile.id }, function (err, user) {\n        return cb(err, user);\n      });\n    }\n  ));\n```\n\n## Resources\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n",
-                "markdown": "## Description\n\nCode is not a safe place to store secrets, use environment variables instead.\n\n## Remediations\n```javascript\n  passport.use(new OAuth2Strategy({\n      authorizationURL: 'https://www.example.com/oauth2/authorize',\n      tokenURL: 'https://www.example.com/oauth2/token',\n      clientID:  process.env.CLIENT_ID,\n      clientSecret: process.env.CLIENT_SECRET,\n      callbackURL: \"http://localhost:3000/auth/example/callback\"\n    },\n    function(accessToken, refreshToken, profile, cb) {\n      User.findOrCreate({ exampleId: profile.id }, function (err, user) {\n        return cb(err, user);\n      });\n    }\n  ));\n```\n\n## Resources\n- [OWASP hardcoded passwords](https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password)\n"
-              }
-            },
-            {
-              "id": "javascript_express_xml_external_entity_vulnerability",
-              "name": "javascript_express_xml_external_entity_vulnerability",
-              "shortDescription": {
-                "text": "XML External Entity vulnerability detected."
-              },
-              "fullDescription": {
-                "text": "XML External Entity vulnerability detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nAvoid parsing untrusted data as XML. Such data could include URIs that resolve to resources that are outside of the current context, leading to XML External Entity (XXE) injection.\n\n## Remediations\n❌ Do not enable parsing of external entities.\n\nFor LibXML, for example, do not set `noent` to `true`.\n```javascript\n  var libxml = require(\"libxmljs\");\n  libxml.parseXmlString(xml, { noent: true, noblanks: true });\n```\n\n## Resources\n- [OWASP XML External Entity (XXE) prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)\n",
-                "markdown": "## Description\nAvoid parsing untrusted data as XML. Such data could include URIs that resolve to resources that are outside of the current context, leading to XML External Entity (XXE) injection.\n\n## Remediations\n❌ Do not enable parsing of external entities.\n\nFor LibXML, for example, do not set `noent` to `true`.\n```javascript\n  var libxml = require(\"libxmljs\");\n  libxml.parseXmlString(xml, { noent: true, noblanks: true });\n```\n\n## Resources\n- [OWASP XML External Entity (XXE) prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_file_generation",
-              "name": "javascript_lang_file_generation",
-              "shortDescription": {
-                "text": "Sensitive data detected as part of a dynamic file generation."
-              },
-              "fullDescription": {
-                "text": "Sensitive data detected as part of a dynamic file generation."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nIt is not uncommon to generate logs, backups, or data exports to static file formats. This rule checks if code exists to write sensitive data to static files.\n\n## Remediations\n\nAvoid writing sensitive data to logs, backups, or exports whenever possible. Instead obfuscate and/or filter the data to exclude sensitive information.\n\n<!--\n## Resources\nComing soon.\n-->\n",
-                "markdown": "## Description\n\nIt is not uncommon to generate logs, backups, or data exports to static file formats. This rule checks if code exists to write sensitive data to static files.\n\n## Remediations\n\nAvoid writing sensitive data to logs, backups, or exports whenever possible. Instead obfuscate and/or filter the data to exclude sensitive information.\n\n<!--\n## Resources\nComing soon.\n-->\n"
-              }
-            },
-            {
-              "id": "javascript_express_https_protocol_missing",
-              "name": "javascript_express_https_protocol_missing",
-              "shortDescription": {
-                "text": "Missing https protocol detected."
-              },
-              "fullDescription": {
-                "text": "Missing https protocol detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nUse HTTPS wherever possible. HTTPS uses the TLS (Transport Layer Security) protocol to encrypt communication, making it more secure than HTTP.\n\n## Remediations\n✅ Use the `https` module when calling `createServer()`\n\n```javascript\nvar https = require('https');\nvar express = require('express');\nvar app = express();\n\nvar httpsServer = https.createServer(app)\nhttpsServer.listen(8080);\n```\n\n## Resources\n- [Express Security Best Practices: use TLS](https://expressjs.com/en/advanced/best-practice-security.html#use-tls)\n",
-                "markdown": "## Description\nUse HTTPS wherever possible. HTTPS uses the TLS (Transport Layer Security) protocol to encrypt communication, making it more secure than HTTP.\n\n## Remediations\n✅ Use the `https` module when calling `createServer()`\n\n```javascript\nvar https = require('https');\nvar express = require('express');\nvar app = express();\n\nvar httpsServer = https.createServer(app)\nhttpsServer.listen(8080);\n```\n\n## Resources\n- [Express Security Best Practices: use TLS](https://expressjs.com/en/advanced/best-practice-security.html#use-tls)\n"
-              }
-            },
-            {
-              "id": "javascript_express_external_file_upload",
-              "name": "javascript_express_external_file_upload",
-              "shortDescription": {
-                "text": "External control of filename or path detected."
-              },
-              "fullDescription": {
-                "text": "External control of filename or path detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nPassing unsanitized user input to the sendFile API is bad practice and can lead to path manipulation, by which attackers can gain access to resources and data outside of the intended scope.\n\n## Remediations\n✅ Set the root option to be an absolute path to a directory\n\n```javascript\napp.post(\"/upload\", (req, res) => {\n  var options = {\n    root: path.join(__dirname, \"upload\")\n  }\n  res.sendFile(req.params.filename, options)\n}\n```\n\n## Resources\n- [Express sendFile API reference](http://expressjs.com/en/5x/api.html#res.sendFile)\n",
-                "markdown": "## Description\nPassing unsanitized user input to the sendFile API is bad practice and can lead to path manipulation, by which attackers can gain access to resources and data outside of the intended scope.\n\n## Remediations\n✅ Set the root option to be an absolute path to a directory\n\n```javascript\napp.post(\"/upload\", (req, res) => {\n  var options = {\n    root: path.join(__dirname, \"upload\")\n  }\n  res.sendFile(req.params.filename, options)\n}\n```\n\n## Resources\n- [Express sendFile API reference](http://expressjs.com/en/5x/api.html#res.sendFile)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_openai",
-              "name": "javascript_third_parties_openai",
-              "shortDescription": {
-                "text": "Sensitive data sent to OpenAI detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to OpenAI detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to OpenAI.\n\n## Remediations\n\nWhen using a third-party, ensure all sensitive data is removed.\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to OpenAI.\n\n## Remediations\n\nWhen using a third-party, ensure all sensitive data is removed.\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_elasticsearch",
-              "name": "javascript_third_parties_elasticsearch",
-              "shortDescription": {
-                "text": "Sensitive data sent to ElasticSearch detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to ElasticSearch detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nLeaking sensitive data to database is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to elasticsearch.\n\n## Remediations\n\n<!--\n## Resources\nComing soon.\n-->\n",
-                "markdown": "## Description\n\nLeaking sensitive data to database is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to elasticsearch.\n\n## Remediations\n\n<!--\n## Resources\nComing soon.\n-->\n"
-              }
-            },
-            {
-              "id": "javascript_react_google_analytics",
-              "name": "javascript_react_google_analytics",
-              "shortDescription": {
-                "text": "Sensitive data sent to Google Analytics detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Google Analytics detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nLeaking sensitive data to third-party analytics tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Google Analytics.\n\n## Remediations\n\nWhen sending data to analytics libraries, ensure all sensitive data is removed.\n\n<!--\n## Resources\nComing soon.\n-->\n",
-                "markdown": "## Description\n\nLeaking sensitive data to third-party analytics tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Google Analytics.\n\n## Remediations\n\nWhen sending data to analytics libraries, ensure all sensitive data is removed.\n\n<!--\n## Resources\nComing soon.\n-->\n"
-              }
-            },
-            {
-              "id": "javascript_express_default_cookie_config",
-              "name": "javascript_express_default_cookie_config",
-              "shortDescription": {
-                "text": "Cookie with default config detected."
-              },
-              "fullDescription": {
-                "text": "Cookie with default config detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nTo make sure cookies don't open your application up to exploits or unauthorized access, don't use default cookie values.\n\n## Remediations\n✅ Instead of the default cookie name, use generic names.\n\n✅ Always set a maxAge or expires value\n\n## Resources\n- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html#use-cookies-securely)\n",
-                "markdown": "## Description\nTo make sure cookies don't open your application up to exploits or unauthorized access, don't use default cookie values.\n\n## Remediations\n✅ Instead of the default cookie name, use generic names.\n\n✅ Always set a maxAge or expires value\n\n## Resources\n- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html#use-cookies-securely)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_google_tag_manager",
-              "name": "javascript_third_parties_google_tag_manager",
-              "shortDescription": {
-                "text": "Sensitive data sent to Google Tag Manager detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Google Tag Manager detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nLeaking sensitive data to third parties is a common cause of data leaks and can lead to data breaches. This rule looks for instances of leaking sensitive data to third parties using google tag manager.\n\n❌ Avoid sending sensitive data to third parties:\n\n```javascript\ndatalayer.push({\n  user: {\n    email: user.email\n  }\n})\n```\n\n✅ If you need to identify a user, ensure to use their unique identifier instead of their personal identifiable information:\n\n```javascript\ndatalayer.push({\n  user: {\n    uuid: user.uuid\n  }\n})\n```\n\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\n\nLeaking sensitive data to third parties is a common cause of data leaks and can lead to data breaches. This rule looks for instances of leaking sensitive data to third parties using google tag manager.\n\n❌ Avoid sending sensitive data to third parties:\n\n```javascript\ndatalayer.push({\n  user: {\n    email: user.email\n  }\n})\n```\n\n✅ If you need to identify a user, ensure to use their unique identifier instead of their personal identifiable information:\n\n```javascript\ndatalayer.push({\n  user: {\n    uuid: user.uuid\n  }\n})\n```\n\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_http_insecure",
-              "name": "javascript_lang_http_insecure",
-              "shortDescription": {
-                "text": "Connection with an unsecure HTTP communication detected."
-              },
-              "fullDescription": {
-                "text": "Connection with an unsecure HTTP communication detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nApplications should only connect to API using HTTPS connections. This rule checks that all HTTP connections use HTTPS.\n\n❌ Avoid using unsecured outgoing HTTP communication, especially in the context of API calls:\n\n```javascript\nconst response = axios.get('http://insecure-api.com')\n```\n\n✅ Ensure to always connect though HTTPS:\n\n```javascript\nconst response = axios.get('https://secure-api.com')\n```\n\n## Resources\n- [OWASP insecure transport](https://owasp.org/www-community/vulnerabilities/Insecure_Transport)\n",
-                "markdown": "## Description\n\nApplications should only connect to API using HTTPS connections. This rule checks that all HTTP connections use HTTPS.\n\n❌ Avoid using unsecured outgoing HTTP communication, especially in the context of API calls:\n\n```javascript\nconst response = axios.get('http://insecure-api.com')\n```\n\n✅ Ensure to always connect though HTTPS:\n\n```javascript\nconst response = axios.get('https://secure-api.com')\n```\n\n## Resources\n- [OWASP insecure transport](https://owasp.org/www-community/vulnerabilities/Insecure_Transport)\n"
-              }
-            },
-            {
-              "id": "javascript_aws_lambda_code_injection",
-              "name": "javascript_aws_lambda_code_injection",
-              "shortDescription": {
-                "text": "Code injection detected."
-              },
-              "fullDescription": {
-                "text": "Code injection detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nRunning code that contains unsanitized data, such as user input or request data, makes your application vulnerable to injection attacks.\n\n## Remediations\nThink twice if user input is really needed there.\n\nIt might be possible to use dynamic hardcoded values:\n\n```javascript\n  exports.handler = async (event) => {\n      let myFunc = \"(a, b) => a + b\"\n\n      if event[\"singleMember\"] {\n        myFunc = \"(a) => a\"\n      }\n\n      vm.compileFunction(myFunc);\n  };\n```\n\nor pass user input to a compiled function, instead of compiling it with user input.\n\n```javascript\n  exports.handler = async (event) => {\n      let myFunc = \"(a, b) => a + b\"\n\n      if event[\"singleMember\"] {\n        myFunc = \"(a) => a\"\n      }\n\n      let compiledFunction = vm.compileFunction(myFunc);\n\n      compiledFunction(event)\n  };\n```\n\n## Resources\n- [OWASP Code injection explained](https://owasp.org/www-community/attacks/Code_Injection)\n",
-                "markdown": "## Description\nRunning code that contains unsanitized data, such as user input or request data, makes your application vulnerable to injection attacks.\n\n## Remediations\nThink twice if user input is really needed there.\n\nIt might be possible to use dynamic hardcoded values:\n\n```javascript\n  exports.handler = async (event) => {\n      let myFunc = \"(a, b) => a + b\"\n\n      if event[\"singleMember\"] {\n        myFunc = \"(a) => a\"\n      }\n\n      vm.compileFunction(myFunc);\n  };\n```\n\nor pass user input to a compiled function, instead of compiling it with user input.\n\n```javascript\n  exports.handler = async (event) => {\n      let myFunc = \"(a, b) => a + b\"\n\n      if event[\"singleMember\"] {\n        myFunc = \"(a) => a\"\n      }\n\n      let compiledFunction = vm.compileFunction(myFunc);\n\n      compiledFunction(event)\n  };\n```\n\n## Resources\n- [OWASP Code injection explained](https://owasp.org/www-community/attacks/Code_Injection)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_google_analytics",
-              "name": "javascript_third_parties_google_analytics",
-              "shortDescription": {
-                "text": "Sensitive data sent to Google Analytic detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Google Analytic detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nLeaking sensitive data to third-party analytics tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Google Analytics.\n\n## Remediations\n\nWhen sending data to analytics libraries, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  gtag(\"event\", \"screen_view\", {\n    user: {\n      subscribed: true,\n    },\n  });\n```\n\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\n\nLeaking sensitive data to third-party analytics tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Google Analytics.\n\n## Remediations\n\nWhen sending data to analytics libraries, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  gtag(\"event\", \"screen_view\", {\n    user: {\n      subscribed: true,\n    },\n  });\n```\n\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            },
-            {
-              "id": "javascript_aws_lambda_sql_injection",
-              "name": "javascript_aws_lambda_sql_injection",
-              "shortDescription": {
-                "text": "SQL injection vulnerability detected."
-              },
-              "fullDescription": {
-                "text": "SQL injection vulnerability detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nIncluding unsanitized data, such as user input or request data, in raw SQL queries makes your application vulnerable to SQL injection attacks.\n\n\n## Remediations\n\nUse safe sql libraries methods which sanitze user input\n\nSequelize example\n\n```javascript\nconst { Op } = require(\"sequelize\");\n\nmodule.exports= async function(event, context) {\n  await Post.findAll({\n    where: {\n      [Op.or]: [\n        { authorId: event.authorID },\n        { authorId: 13 }\n      ]\n    }\n  });\n};\n```\n\n## Resources\n- [OWASP sql injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n",
-                "markdown": "## Description\nIncluding unsanitized data, such as user input or request data, in raw SQL queries makes your application vulnerable to SQL injection attacks.\n\n\n## Remediations\n\nUse safe sql libraries methods which sanitze user input\n\nSequelize example\n\n```javascript\nconst { Op } = require(\"sequelize\");\n\nmodule.exports= async function(event, context) {\n  await Post.findAll({\n    where: {\n      [Op.or]: [\n        { authorId: event.authorID },\n        { authorId: 13 }\n      ]\n    }\n  });\n};\n```\n\n## Resources\n- [OWASP sql injection explained](https://owasp.org/www-community/attacks/SQL_Injection)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_jwt_weak_encryption",
-              "name": "javascript_lang_jwt_weak_encryption",
-              "shortDescription": {
-                "text": "Weak jwt encryption deceted"
-              },
-              "fullDescription": {
-                "text": "Weak jwt encryption deceted"
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nUse any default encryption algorithm jwt library provides\n\n## Remediations\n\nUse the HS256 algorithm for JWT encryption\n\n```\n  jwt.sign({ \"foo\": \"bar\"}, process.env.JWT_SECRET, {\n    algorithm: \"HS256\"\n  })\n```\n\n## Resources\n- [OWASP weak encryption](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption)\n",
-                "markdown": "## Description\n\nUse any default encryption algorithm jwt library provides\n\n## Remediations\n\nUse the HS256 algorithm for JWT encryption\n\n```\n  jwt.sign({ \"foo\": \"bar\"}, process.env.JWT_SECRET, {\n    algorithm: \"HS256\"\n  })\n```\n\n## Resources\n- [OWASP weak encryption](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption)\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_open_telemetry",
-              "name": "javascript_third_parties_open_telemetry",
-              "shortDescription": {
-                "text": "Sensitive data sent to Open Telemetry detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Open Telemetry detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Open Telemetry.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\n## Resources\n- [Open Telemetry Docs](https://opentelemetry.io/docs/)\n",
-                "markdown": "## Description\nLeaking sensitive data to third-party loggers is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Open Telemetry.\n\n## Remediations\n\nWhen logging errors or events, ensure all sensitive data is removed.\n\n## Resources\n- [Open Telemetry Docs](https://opentelemetry.io/docs/)\n"
-              }
-            },
-            {
-              "id": "javascript_express_reduce_fingerprint",
-              "name": "javascript_express_reduce_fingerprint",
-              "shortDescription": {
-                "text": "Security misconfiguration detected."
-              },
-              "fullDescription": {
-                "text": "Security misconfiguration detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nIt can help to provide an extra layer of security to reduce server fingerprinting. Though not a security issue itself, a method to improve the overall posture of a web server is to take measures to reduce the ability to fingerprint the software being used on the server. Server software can be fingerprinted by quirks in how they respond to specific requests.\n\nBy default, Express.js sends the X-Powered-By response header banner. This can be disabled using the app.disable() method:\n\n```\n  app.disable('x-powered-by')\n```\n\n## Resources\n\n- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html)\n",
-                "markdown": "## Description\n\nIt can help to provide an extra layer of security to reduce server fingerprinting. Though not a security issue itself, a method to improve the overall posture of a web server is to take measures to reduce the ability to fingerprint the software being used on the server. Server software can be fingerprinted by quirks in how they respond to specific requests.\n\nBy default, Express.js sends the X-Powered-By response header banner. This can be disabled using the app.disable() method:\n\n```\n  app.disable('x-powered-by')\n```\n\n## Resources\n\n- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html)\n"
-              }
-            },
-            {
-              "id": "javascript_lang_post_message_origin",
-              "name": "javascript_lang_post_message_origin",
-              "shortDescription": {
-                "text": "Permissive origin in postMessage detected."
-              },
-              "fullDescription": {
-                "text": "Permissive origin in postMessage detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nUsing \"*\" (any) as the target origin of a postMessage call allows\nthird-parties to read the message.\n\n## Remediations\n\n❌ Avoid using \"*\" as the target origin:\n\n```javascript\nwindow.postMessage(message, '*')\n```\n\n✅ Specify the origin for your target application:\n\n```javascript\nwindow.postMessage(message, 'https://myapp.example.com')\n```\n",
-                "markdown": "## Description\n\nUsing \"*\" (any) as the target origin of a postMessage call allows\nthird-parties to read the message.\n\n## Remediations\n\n❌ Avoid using \"*\" as the target origin:\n\n```javascript\nwindow.postMessage(message, '*')\n```\n\n✅ Specify the origin for your target application:\n\n```javascript\nwindow.postMessage(message, 'https://myapp.example.com')\n```\n"
-              }
-            },
-            {
-              "id": "javascript_third_parties_rollbar",
-              "name": "javascript_third_parties_rollbar",
-              "shortDescription": {
-                "text": "Sensitive data sent to Rollbar detected."
-              },
-              "fullDescription": {
-                "text": "Sensitive data sent to Rollbar detected."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "text": "## Description\n\nLeaking sensitive data to third-party error logging tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Rollbar.\n\n## Remediations\n\nWhen sending data to logging libraries, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  Rollbar.critical(\"Connection error from remote Payments API\", user.uuid);\n```\n\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n",
-                "markdown": "## Description\n\nLeaking sensitive data to third-party error logging tools is a common cause of data leaks and can lead to data breaches. This rule looks for instances of sensitive data sent to Rollbar.\n\n## Remediations\n\nWhen sending data to logging libraries, ensure all sensitive data is removed.\n\nIf you really need to identify users, use unique identifiers from the database.\n\n```javascript\n  Rollbar.critical(\"Connection error from remote Payments API\", user.uuid);\n```\n\n## Resources\n- [OWASP logging cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)\n"
-              }
-            }
-          ]
-        }
-      },
-      "results": [
-        {
-          "ruleId": "javascript_express_path_traversal",
-          "message": {
-            "text": "Possible path traversal vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "routes/dataErasure.ts"
-                },
-                "region": {
-                  "startLine": 69,
-                  "startColumn": 32,
-                  "endColumn": 61,
-                  "endLine": 69
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/dbSchemaChallenge_1.ts"
-                },
-                "region": {
-                  "startLine": 5,
-                  "startColumn": 5,
-                  "endColumn": 163,
-                  "endLine": 5
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/dbSchemaChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 11,
-                  "startColumn": 5,
-                  "endColumn": 161,
-                  "endLine": 11
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/loginAdminChallenge_1.ts"
-                },
-                "region": {
-                  "startLine": 20,
-                  "startColumn": 5,
-                  "endColumn": 208,
-                  "endLine": 20
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/loginAdminChallenge_2.ts"
-                },
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 5,
-                  "endColumn": 69,
-                  "endLine": 18
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/loginBenderChallenge_1.ts"
-                },
-                "region": {
-                  "startLine": 20,
-                  "startColumn": 5,
-                  "endColumn": 208,
-                  "endLine": 20
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/loginBenderChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 5,
-                  "endColumn": 83,
-                  "endLine": 18
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/loginBenderChallenge_4.ts"
-                },
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 5,
-                  "endColumn": 209,
-                  "endLine": 17
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/loginJimChallenge_2.ts"
-                },
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 5,
-                  "endColumn": 209,
-                  "endLine": 17
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/loginJimChallenge_4.ts"
-                },
-                "region": {
-                  "startLine": 20,
-                  "startColumn": 5,
-                  "endColumn": 208,
-                  "endLine": 20
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/unionSqlInjectionChallenge_1.ts"
-                },
-                "region": {
-                  "startLine": 6,
-                  "startColumn": 5,
-                  "endColumn": 161,
-                  "endLine": 6
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/unionSqlInjectionChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 10,
-                  "startColumn": 5,
-                  "endColumn": 161,
-                  "endLine": 10
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "routes/login.ts"
-                },
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 5,
-                  "endColumn": 206,
-                  "endLine": 36
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_sql_injection",
-          "message": {
-            "text": "SQL injection vulnerability detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "routes/search.ts"
-                },
-                "region": {
-                  "startLine": 23,
-                  "startColumn": 5,
-                  "endColumn": 161,
-                  "endLine": 23
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_hardcoded_secret",
-          "message": {
-            "text": "Hardcoded secret detected"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "lib/insecurity.ts"
-                },
-                "region": {
-                  "startLine": 43,
-                  "startColumn": 34,
-                  "endColumn": 89,
-                  "endLine": 43
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_hardcoded_secret",
-          "message": {
-            "text": "Hardcoded secret detected"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "lib/insecurity.ts"
-                },
-                "region": {
-                  "startLine": 166,
-                  "startColumn": 16,
-                  "endColumn": 55,
-                  "endLine": 166
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_http_url_using_user_input",
-          "message": {
-            "text": "HTTP communication with user-controlled destination detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "routes/profileImageUrlUpload.ts"
-                },
-                "region": {
-                  "startLine": 22,
-                  "startColumn": 30,
-                  "endColumn": 20,
-                  "endLine": 23
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_jwt_hardcoded_secret",
-          "message": {
-            "text": "Hardcoded JWT secret detected"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "lib/insecurity.ts"
-                },
-                "region": {
-                  "startLine": 55,
-                  "startColumn": 36,
-                  "endColumn": 112,
-                  "endLine": 55
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_session",
-          "message": {
-            "text": "Sensitive data stored in HTML local storage detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "frontend/src/app/login/login.component.ts"
-                },
-                "region": {
-                  "startLine": 102,
-                  "startColumn": 37,
-                  "endColumn": 52,
-                  "endLine": 102
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts"
-                },
-                "region": {
-                  "startLine": 2,
-                  "startColumn": 3,
-                  "endColumn": 76,
-                  "endLine": 2
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts"
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 7
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_2.ts"
-                },
-                "region": {
-                  "startLine": 2,
-                  "startColumn": 3,
-                  "endColumn": 76,
-                  "endLine": 2
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_2.ts"
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 7
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_2.ts"
-                },
-                "region": {
-                  "startLine": 11,
-                  "startColumn": 3,
-                  "endColumn": 86,
-                  "endLine": 11
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 2,
-                  "startColumn": 3,
-                  "endColumn": 76,
-                  "endLine": 2
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 7
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 11,
-                  "startColumn": 3,
-                  "endColumn": 103,
-                  "endLine": 11
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_4.ts"
-                },
-                "region": {
-                  "startLine": 2,
-                  "startColumn": 3,
-                  "endColumn": 76,
-                  "endLine": 2
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/accessLogDisclosureChallenge_4.ts"
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 7
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_1_correct.ts"
-                },
-                "region": {
-                  "startLine": 2,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 2
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_1_correct.ts"
-                },
-                "region": {
-                  "startLine": 6,
-                  "startColumn": 3,
-                  "endColumn": 103,
-                  "endLine": 6
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_2.ts"
-                },
-                "region": {
-                  "startLine": 6,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 6
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_2.ts"
-                },
-                "region": {
-                  "startLine": 10,
-                  "startColumn": 3,
-                  "endColumn": 103,
-                  "endLine": 10
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 2,
-                  "startColumn": 3,
-                  "endColumn": 76,
-                  "endLine": 2
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 5,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 5
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 9,
-                  "startColumn": 3,
-                  "endColumn": 103,
-                  "endLine": 9
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_4.ts"
-                },
-                "region": {
-                  "startLine": 2,
-                  "startColumn": 3,
-                  "endColumn": 77,
-                  "endLine": 2
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_4.ts"
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 7
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/directoryListingChallenge_4.ts"
-                },
-                "region": {
-                  "startLine": 11,
-                  "startColumn": 3,
-                  "endColumn": 103,
-                  "endLine": 11
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "server.ts"
-                },
-                "region": {
-                  "startLine": 241,
-                  "startColumn": 3,
-                  "endColumn": 76,
-                  "endLine": 241
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "server.ts"
-                },
-                "region": {
-                  "startLine": 246,
-                  "startColumn": 3,
-                  "endColumn": 115,
-                  "endLine": 246
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_express_exposed_dir_listing",
-          "message": {
-            "text": "Missing access restriction to directory listing detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "server.ts"
-                },
-                "region": {
-                  "startLine": 250,
-                  "startColumn": 3,
-                  "endColumn": 103,
-                  "endLine": 250
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_manual_html_sanitization",
-          "message": {
-            "text": "Manual HTML sanitization detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/redirectChallenge_3.ts"
-                },
-                "region": {
-                  "startLine": 22,
-                  "startColumn": 10,
-                  "endColumn": 7,
-                  "endLine": 31
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_manual_html_sanitization",
-          "message": {
-            "text": "Manual HTML sanitization detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "data/static/codefixes/restfulXssChallenge_2.ts"
-                },
-                "region": {
-                  "startLine": 59,
-                  "startColumn": 34,
-                  "endColumn": 106,
-                  "endLine": 59
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_weak_encryption",
-          "message": {
-            "text": "Weak encryption library usage detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "Gruntfile.js"
-                },
-                "region": {
-                  "startLine": 74,
-                  "startColumn": 7,
-                  "endColumn": 25,
-                  "endLine": 74
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "javascript_lang_weak_encryption",
-          "message": {
-            "text": "Weak encryption library usage detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "lib/insecurity.ts"
-                },
-                "region": {
-                  "startLine": 42,
-                  "startColumn": 34,
-                  "endColumn": 71,
-                  "endLine": 42
-                }
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+	"version": "2.1.0",
+	"runs": [
+		{
+			"tool": {
+				"driver": {
+					"name": "Bearer",
+					"rules": [
+						{
+							"id": "rule_1",
+							"name": "rule_1",
+							"shortDescription": {
+								"text": "rule 1"
+							},
+							"fullDescription": {
+								"text": "rule 1"
+							},
+							"defaultConfiguration": {
+								"level": "error"
+							},
+							"help": {
+								"text": "## Rule 1\nremediation message",
+								"markdown": "## Rule 1\nremediation message"
+							}
+						}
+					]
+				}
+			},
+			"results": [
+				{
+					"ruleId": "javascript_express_path_traversal",
+					"message": {
+						"text": "Possible path traversal vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/dataErasure.ts"
+								},
+								"region": {
+									"startLine": 69,
+									"startColumn": 32,
+									"endColumn": 61,
+									"endLine": 69
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_path_traversal",
+					"message": {
+						"text": "Possible path traversal vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/keyServer.ts"
+								},
+								"region": {
+									"startLine": 14,
+									"startColumn": 20,
+									"endColumn": 57,
+									"endLine": 14
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_path_traversal",
+					"message": {
+						"text": "Possible path traversal vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/logfileServer.ts"
+								},
+								"region": {
+									"startLine": 14,
+									"startColumn": 20,
+									"endColumn": 47,
+									"endLine": 14
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_path_traversal",
+					"message": {
+						"text": "Possible path traversal vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/quarantineServer.ts"
+								},
+								"region": {
+									"startLine": 14,
+									"startColumn": 20,
+									"endColumn": 57,
+									"endLine": 14
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_hardcoded_secret",
+					"message": {
+						"text": "Hardcoded secret detected"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "lib/insecurity.ts"
+								},
+								"region": {
+									"startLine": 43,
+									"startColumn": 34,
+									"endColumn": 89,
+									"endLine": 43
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_hardcoded_secret",
+					"message": {
+						"text": "Hardcoded secret detected"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "lib/insecurity.ts"
+								},
+								"region": {
+									"startLine": 166,
+									"startColumn": 16,
+									"endColumn": 55,
+									"endLine": 166
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_http_url_using_user_input",
+					"message": {
+						"text": "HTTP communication with user-controlled destination detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/profileImageUrlUpload.ts"
+								},
+								"region": {
+									"startLine": 22,
+									"startColumn": 30,
+									"endColumn": 20,
+									"endLine": 23
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_jwt_hardcoded_secret",
+					"message": {
+						"text": "Hardcoded JWT secret detected"
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "lib/insecurity.ts"
+								},
+								"region": {
+									"startLine": 55,
+									"startColumn": 36,
+									"endColumn": 112,
+									"endLine": 55
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_session",
+					"message": {
+						"text": "Sensitive data stored in HTML local storage detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "frontend/src/app/login/login.component.ts"
+								},
+								"region": {
+									"startLine": 102,
+									"startColumn": 7,
+									"endColumn": 53,
+									"endLine": 102
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/dbSchemaChallenge_1.ts"
+								},
+								"region": {
+									"startLine": 5,
+									"startColumn": 5,
+									"endColumn": 163,
+									"endLine": 5
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/dbSchemaChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 11,
+									"startColumn": 5,
+									"endColumn": 161,
+									"endLine": 11
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/loginAdminChallenge_1.ts"
+								},
+								"region": {
+									"startLine": 20,
+									"startColumn": 5,
+									"endColumn": 208,
+									"endLine": 20
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/loginBenderChallenge_1.ts"
+								},
+								"region": {
+									"startLine": 20,
+									"startColumn": 5,
+									"endColumn": 208,
+									"endLine": 20
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/loginBenderChallenge_4.ts"
+								},
+								"region": {
+									"startLine": 17,
+									"startColumn": 5,
+									"endColumn": 209,
+									"endLine": 17
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/loginJimChallenge_2.ts"
+								},
+								"region": {
+									"startLine": 17,
+									"startColumn": 5,
+									"endColumn": 209,
+									"endLine": 17
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/loginJimChallenge_4.ts"
+								},
+								"region": {
+									"startLine": 20,
+									"startColumn": 5,
+									"endColumn": 208,
+									"endLine": 20
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/unionSqlInjectionChallenge_1.ts"
+								},
+								"region": {
+									"startLine": 6,
+									"startColumn": 5,
+									"endColumn": 161,
+									"endLine": 6
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/unionSqlInjectionChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 10,
+									"startColumn": 5,
+									"endColumn": 161,
+									"endLine": 10
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/login.ts"
+								},
+								"region": {
+									"startLine": 36,
+									"startColumn": 5,
+									"endColumn": 206,
+									"endLine": 36
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_sql_injection",
+					"message": {
+						"text": "SQL injection vulnerability detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/search.ts"
+								},
+								"region": {
+									"startLine": 23,
+									"startColumn": 5,
+									"endColumn": 161,
+									"endLine": 23
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts"
+								},
+								"region": {
+									"startLine": 2,
+									"startColumn": 3,
+									"endColumn": 76,
+									"endLine": 2
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts"
+								},
+								"region": {
+									"startLine": 7,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 7
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_2.ts"
+								},
+								"region": {
+									"startLine": 2,
+									"startColumn": 3,
+									"endColumn": 76,
+									"endLine": 2
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_2.ts"
+								},
+								"region": {
+									"startLine": 7,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 7
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_2.ts"
+								},
+								"region": {
+									"startLine": 11,
+									"startColumn": 3,
+									"endColumn": 86,
+									"endLine": 11
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 2,
+									"startColumn": 3,
+									"endColumn": 76,
+									"endLine": 2
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 7,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 7
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 11,
+									"startColumn": 3,
+									"endColumn": 103,
+									"endLine": 11
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_4.ts"
+								},
+								"region": {
+									"startLine": 2,
+									"startColumn": 3,
+									"endColumn": 76,
+									"endLine": 2
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/accessLogDisclosureChallenge_4.ts"
+								},
+								"region": {
+									"startLine": 7,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 7
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_1_correct.ts"
+								},
+								"region": {
+									"startLine": 2,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 2
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_1_correct.ts"
+								},
+								"region": {
+									"startLine": 6,
+									"startColumn": 3,
+									"endColumn": 103,
+									"endLine": 6
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_2.ts"
+								},
+								"region": {
+									"startLine": 6,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 6
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_2.ts"
+								},
+								"region": {
+									"startLine": 10,
+									"startColumn": 3,
+									"endColumn": 103,
+									"endLine": 10
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 2,
+									"startColumn": 3,
+									"endColumn": 76,
+									"endLine": 2
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 5,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 5
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 9,
+									"startColumn": 3,
+									"endColumn": 103,
+									"endLine": 9
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_4.ts"
+								},
+								"region": {
+									"startLine": 2,
+									"startColumn": 3,
+									"endColumn": 77,
+									"endLine": 2
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_4.ts"
+								},
+								"region": {
+									"startLine": 7,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 7
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/directoryListingChallenge_4.ts"
+								},
+								"region": {
+									"startLine": 11,
+									"startColumn": 3,
+									"endColumn": 103,
+									"endLine": 11
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "server.ts"
+								},
+								"region": {
+									"startLine": 241,
+									"startColumn": 3,
+									"endColumn": 76,
+									"endLine": 241
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "server.ts"
+								},
+								"region": {
+									"startLine": 246,
+									"startColumn": 3,
+									"endColumn": 115,
+									"endLine": 246
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_exposed_dir_listing",
+					"message": {
+						"text": "Missing access restriction to directory listing detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "server.ts"
+								},
+								"region": {
+									"startLine": 250,
+									"startColumn": 3,
+									"endColumn": 103,
+									"endLine": 250
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_external_file_upload",
+					"message": {
+						"text": "External control of filename or path detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/keyServer.ts"
+								},
+								"region": {
+									"startLine": 14,
+									"startColumn": 7,
+									"endColumn": 58,
+									"endLine": 14
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_external_file_upload",
+					"message": {
+						"text": "External control of filename or path detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/logfileServer.ts"
+								},
+								"region": {
+									"startLine": 14,
+									"startColumn": 7,
+									"endColumn": 48,
+									"endLine": 14
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_external_file_upload",
+					"message": {
+						"text": "External control of filename or path detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "routes/quarantineServer.ts"
+								},
+								"region": {
+									"startLine": 14,
+									"startColumn": 7,
+									"endColumn": 58,
+									"endLine": 14
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_jwt_not_revoked",
+					"message": {
+						"text": "Unrevoked JWT detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "lib/insecurity.ts"
+								},
+								"region": {
+									"startLine": 53,
+									"startColumn": 30,
+									"endColumn": 63,
+									"endLine": 53
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_express_jwt_not_revoked",
+					"message": {
+						"text": "Unrevoked JWT detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "lib/insecurity.ts"
+								},
+								"region": {
+									"startLine": 54,
+									"startColumn": 25,
+									"endColumn": 67,
+									"endLine": 54
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_manual_html_sanitization",
+					"message": {
+						"text": "Manual HTML sanitization detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/redirectChallenge_3.ts"
+								},
+								"region": {
+									"startLine": 22,
+									"startColumn": 10,
+									"endColumn": 7,
+									"endLine": 31
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_manual_html_sanitization",
+					"message": {
+						"text": "Manual HTML sanitization detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "data/static/codefixes/restfulXssChallenge_2.ts"
+								},
+								"region": {
+									"startLine": 59,
+									"startColumn": 34,
+									"endColumn": 82,
+									"endLine": 59
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_weak_encryption",
+					"message": {
+						"text": "Weak encryption library usage detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "Gruntfile.js"
+								},
+								"region": {
+									"startLine": 74,
+									"startColumn": 7,
+									"endColumn": 25,
+									"endLine": 74
+								}
+							}
+						}
+					]
+				},
+				{
+					"ruleId": "javascript_lang_weak_encryption",
+					"message": {
+						"text": "Weak encryption library usage detected."
+					},
+					"locations": [
+						{
+							"physicalLocation": {
+								"artifactLocation": {
+									"uri": "lib/insecurity.ts"
+								},
+								"region": {
+									"startLine": 42,
+									"startColumn": 34,
+									"endColumn": 71,
+									"endLine": 42
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
 }
